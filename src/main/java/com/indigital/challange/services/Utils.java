@@ -28,15 +28,21 @@ public class Utils {
     }
 
     public static double getStandardDeviation(List<Integer> listAges) {
-        double average = getAverage(listAges);
+
         List<Double> dist = new ArrayList<>();
         double sum = 0;
         double standardDeviation = 0;
 
+        //media
+        double average = getAverage(listAges);
+
+        //calculo el cuadrado de la distancia a la media y hago la sumatoria
         for (int i=0; i<listAges.size(); i++) {
             dist.add( Math.pow( average - (Math.abs(listAges.get(i))), 2) );
             sum = dist.get(i);
         }
+
+        //divido la sumaroria entre el numero total de datos, y saco la raiz cuadrada
         standardDeviation = Math.sqrt( (sum/listAges.size()) );
         return standardDeviation;
     }
