@@ -14,7 +14,7 @@ public class Utils {
         return Period.between(birthDate, currentDate).getYears();
     }
 
-    public static int average(List<Integer> listAges) {
+    public static int getAverage(List<Integer> listAges) {
         int sum = 0;
         int count = 0;
         for (int i=0; i<listAges.size(); i++){
@@ -27,8 +27,18 @@ public class Utils {
         return (sum / count);
     }
 
-    public static int standardDeviation(Iterable<Cliente> clienteList) {
-        return 0;
+    public static double getStandardDeviation(List<Integer> listAges) {
+        double average = getAverage(listAges);
+        List<Double> dist = new ArrayList<>();
+        double sum = 0;
+        double standardDeviation = 0;
+
+        for (int i=0; i<listAges.size(); i++) {
+            dist.add( Math.pow( average - (Math.abs(listAges.get(i))), 2) );
+            sum = dist.get(i);
+        }
+        standardDeviation = Math.sqrt( (sum/listAges.size()) );
+        return standardDeviation;
     }
 
     public static List<Integer> getAges(Iterable<Cliente> clienteList) {

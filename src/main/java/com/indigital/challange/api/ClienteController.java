@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+import static com.indigital.challange.services.Utils.getStandardDeviation;
+
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -52,10 +54,10 @@ public class ClienteController {
         Iterable<Cliente> clienteList = clienteServices.getAllDevice();
 
         List<Integer> average = Utils.getAges(clienteList);
-        int standardDeviation = Utils.standardDeviation(clienteList);
 
-        response.put("average", Utils.average(average));
-        response.put("standardDeviation", standardDeviation);
+        response.put("average", Utils.getAverage(average));
+        response.put("standardDeviation", getStandardDeviation(average));
+
         log.info("status code: {}", HttpStatus.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
