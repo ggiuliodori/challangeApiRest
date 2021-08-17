@@ -3,7 +3,9 @@ package com.indigital.challange.api;
 import com.indigital.challange.repository.models.Cliente;
 import com.indigital.challange.services.ClienteServices;
 import com.indigital.challange.services.ErrorService;
+import com.indigital.challange.services.Utils;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -42,7 +45,22 @@ public class ClienteController {
             return new ResponseEntity<>(jsonResponse, HttpStatus.CONFLICT);
         }
     }
-    @RequestMapping(value = "/clientes", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/kpideclientes", method = RequestMethod.GET)
+    public ResponseEntity<?> calculateKpide() {
+        JSONObject response = new JSONObject();
+        Iterable<Cliente> clienteList = clienteServices.getAllDevice();
+
+        List<Integer> average = Utils.getAges(clienteList);
+        int standardDeviation = Utils.standardDeviation(clienteList);
+
+        response.put("average", Utils.average(average));
+        response.put("standardDeviation", standardDeviation);
+        log.info("status code: {}", HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/listclientes", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Cliente>> getAllDevice() {
         Iterable<Cliente> clienteList = clienteServices.getAllDevice();
         log.info("status code: {}", HttpStatus.OK);
