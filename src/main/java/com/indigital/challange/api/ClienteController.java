@@ -53,10 +53,10 @@ public class ClienteController {
         JSONObject response = new JSONObject();
         Iterable<Cliente> clienteList = clienteServices.getAllDevice();
 
-        List<Integer> average = Utils.getAges(clienteList);
+        List<Integer> agesList = Utils.getAges(clienteList);
 
-        response.put("average", Utils.getAverage(average));
-        response.put("standardDeviation", getStandardDeviation(average));
+        response.put("average", Utils.getAverage(agesList));
+        response.put("standardDeviation", getStandardDeviation(agesList));
 
         log.info("status code: {}", HttpStatus.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
