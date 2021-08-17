@@ -1,6 +1,8 @@
 package com.indigital.challange.api;
 
 import com.indigital.challange.repository.models.Cliente;
+import com.indigital.challange.services.ClienteServices;
+import com.indigital.challange.services.ErrorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,15 +21,16 @@ import java.util.Date;
 public class ClienteController {
 
     @Autowired
-    private ClienteController clienteController;
+    private ClienteServices clienteServices;
 
-    @RequestMapping(value = "/creacliente)", method = RequestMethod.POST)
+    @RequestMapping(value = "/creacliente", method = RequestMethod.POST)
     public ResponseEntity<?> addCliente(@RequestBody Cliente jsonCliente) {
+        log.info("inside controller");
         try {
-            clienteController.addCliente(jsonCliente);
+            clienteServices.addCliente(jsonCliente);
             log.info("status code: {}", HttpStatus.CREATED);
             return new ResponseEntity<>(jsonCliente, HttpStatus.CREATED);
-        } catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException | ErrorService e) {
             ErrorResponse jsonResponse = new ErrorResponse();
             jsonResponse.setTimestamp(new Date());
             jsonResponse.setStatus(HttpStatus.CONFLICT);
@@ -38,5 +41,11 @@ public class ClienteController {
             log.error("error: {}", jsonResponse);
             return new ResponseEntity<>(jsonResponse, HttpStatus.CONFLICT);
         }
+    }
+    @RequestMapping(value = "/clientes", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Cliente>> getAllDevice() {
+        Iterable<Cliente> clienteList = clienteServices.getAllDevice();
+        log.info("status code: {}", HttpStatus.OK);
+        return new ResponseEntity<Iterable<Cliente>>(clienteList, HttpStatus.OK);
     }
 }

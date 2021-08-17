@@ -2,13 +2,8 @@ package com.indigital.challange.repository.models;
 
 import lombok.Data;
 import lombok.NonNull;
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -27,12 +22,12 @@ public class Cliente {
     private Integer age;
 
     @Column(nullable = false)
-    private Date dateBirth;
+    private LocalDate dateBirth;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, @NonNull String name, @NonNull String lastName, @NonNull Date dateBirth) {
+    public Cliente(Long id, @NonNull String name, @NonNull String lastName, @NonNull LocalDate dateBirth) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
