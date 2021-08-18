@@ -51,7 +51,7 @@ public class ClienteController {
     @RequestMapping(value = "/kpideclientes", method = RequestMethod.GET)
     public ResponseEntity<?> calculateKpide() {
         JSONObject response = new JSONObject();
-        Iterable<Cliente> clienteList = clienteServices.getAllDevice();
+        Iterable<Cliente> clienteList = clienteServices.getAllClients();
 
         List<Integer> agesList = Utils.getAges(clienteList);
 
@@ -63,8 +63,9 @@ public class ClienteController {
     }
 
     @RequestMapping(value = "/listclientes", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Cliente>> getAllDevice() {
-        Iterable<Cliente> clienteList = clienteServices.getAllDevice();
+    public ResponseEntity<Iterable<Cliente>> getAllClients() {
+        Iterable<Cliente> clienteList = clienteServices.getAllClients();
+        //List<JSONObject> response = ClienteServices.bundleResponse(clienteList);
         log.info("status code: {}", HttpStatus.OK);
         return new ResponseEntity<Iterable<Cliente>>(clienteList, HttpStatus.OK);
     }

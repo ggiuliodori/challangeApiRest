@@ -53,6 +53,16 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>2.4.0</version>
+				<configuration>
+					<projectId>GCLOUD_CONFIG</projectId>
+					<version>gettingstarted</version>
+					<artifact>${project.build.directory}/getting-started-${project.version}-runner.jar</artifact>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>

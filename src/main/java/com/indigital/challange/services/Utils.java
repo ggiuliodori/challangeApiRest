@@ -1,6 +1,7 @@
 package com.indigital.challange.services;
 
 import com.indigital.challange.repository.models.Cliente;
+import net.minidev.json.JSONObject;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.time.LocalDate;
@@ -54,5 +55,18 @@ public class Utils {
             ages.add(calculateAge((IterableUtils.get(clienteList, i).getDateBirth()), currentDate));
         }
         return ages;
+    }
+
+    public static String calcProbableDateOfDeath(Integer age) {
+
+        if (age >= 73) return "Now!";
+
+        //promedio mundial de esperanza de vida (fuente: wikipedia)
+        int lifeExpectancy = 73;
+
+        int plus = lifeExpectancy - age;
+        LocalDate date = LocalDate.now();
+        date = date.plusYears(plus);
+        return date.toString();
     }
 }
