@@ -63,10 +63,10 @@ public class ClienteController {
     }
 
     @RequestMapping(value = "/listclientes", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Client>> getAllClients() {
+    public ResponseEntity<List<JSONObject>> getAllClients() {
         Iterable<Client> clienteList = clienteServices.getAllClients();
-        //List<JSONObject> response = ClienteServices.bundleResponse(clienteList);
+        List<JSONObject> response = ClienteServices.bundleResponse(clienteList);
         log.info("status code: {}", HttpStatus.OK);
-        return new ResponseEntity<Iterable<Client>>(clienteList, HttpStatus.OK);
+        return new ResponseEntity<List<JSONObject>>(response, HttpStatus.OK);
     }
 }

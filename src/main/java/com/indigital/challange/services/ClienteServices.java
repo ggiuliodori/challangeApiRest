@@ -1,5 +1,6 @@
 package com.indigital.challange.services;
 
+import com.google.common.collect.Lists;
 import com.indigital.challange.repository.ClienteRepository;
 import com.indigital.challange.repository.models.Client;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -37,19 +40,19 @@ public class ClienteServices {
     }
 
     public static List<JSONObject> bundleResponse(Iterable<Client> clienteList) {
-        List<JSONObject> response = new ArrayList<>();
-        JSONObject bundle = new JSONObject();
-        for (int i = 0; i< IterableUtils.size(clienteList); i++) {
-            log.info(IterableUtils.get(clienteList, i).toString());
-            bundle.put("name", IterableUtils.get(clienteList, i).getName());
-            bundle.put("lastName", IterableUtils.get(clienteList, i).getLastName());
-            bundle.put("age", IterableUtils.get(clienteList, i).getAge());
-            bundle.put("dateBirth", IterableUtils.get(clienteList, i).getDateBirth());
-            bundle.put("probableDateOfDeath", Utils.calcProbableDateOfDeath(IterableUtils.get(clienteList, i).getAge()));
-            response.add(i, bundle);
-            log.info("response " + response);
+        List<Client> listClients = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        List<JSONObject> bundle = new ArrayList<>();
+        listClients = Lists.newArrayList(clienteList);
+        for (int i=0; i<listClients.size(); i++) {
+            jsonObject.put("name", listClients.get(i).getName());
+            jsonObject.put("lastName", listClients.get(i).getLastName());
+            jsonObject.put("age", listClients.get(i).getAge());
+            jsonObject.put("dateBirth", listClients.get(i).getDateBirth());
+            jsonObject.put("probableDateOfDeath", Utils.calcProbableDateOfDeath(listClients.get(i).getAge()));
+            bundle.add(jsonObject);
         }
-        return response;
+        return bundle;
     }
 
 }

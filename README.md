@@ -23,3 +23,6 @@ You must have installed
 
 ## API DOC
 ```https://app.swaggerhub.com/apis/ggiuliodori/indigital_challange/1.0.0```
+
+## DATABASE CLIENT
+```http://localhost:8000```
