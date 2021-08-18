@@ -1,6 +1,6 @@
 package com.indigital.challange.api;
 
-import com.indigital.challange.repository.models.Cliente;
+import com.indigital.challange.repository.models.Client;
 import com.indigital.challange.services.ClienteServices;
 import com.indigital.challange.services.ErrorService;
 import com.indigital.challange.services.Utils;
@@ -29,7 +29,7 @@ public class ClienteController {
     private ClienteServices clienteServices;
 
     @RequestMapping(value = "/creacliente", method = RequestMethod.POST)
-    public ResponseEntity<?> addCliente(@RequestBody Cliente jsonCliente) {
+    public ResponseEntity<?> addCliente(@RequestBody Client jsonCliente) {
         log.info("inside controller");
         try {
             clienteServices.addCliente(jsonCliente);
@@ -51,7 +51,7 @@ public class ClienteController {
     @RequestMapping(value = "/kpideclientes", method = RequestMethod.GET)
     public ResponseEntity<?> calculateKpide() {
         JSONObject response = new JSONObject();
-        Iterable<Cliente> clienteList = clienteServices.getAllClients();
+        Iterable<Client> clienteList = clienteServices.getAllClients();
 
         List<Integer> agesList = Utils.getAges(clienteList);
 
@@ -63,10 +63,10 @@ public class ClienteController {
     }
 
     @RequestMapping(value = "/listclientes", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Cliente>> getAllClients() {
-        Iterable<Cliente> clienteList = clienteServices.getAllClients();
+    public ResponseEntity<Iterable<Client>> getAllClients() {
+        Iterable<Client> clienteList = clienteServices.getAllClients();
         //List<JSONObject> response = ClienteServices.bundleResponse(clienteList);
         log.info("status code: {}", HttpStatus.OK);
-        return new ResponseEntity<Iterable<Cliente>>(clienteList, HttpStatus.OK);
+        return new ResponseEntity<Iterable<Client>>(clienteList, HttpStatus.OK);
     }
 }

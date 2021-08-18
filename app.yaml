@@ -1,11 +1,5 @@
-runtime: custom
-env: flex
-service: indigital
-threadsafe: yes
-automatic_scaling:
-  min_num_instances: 1
-  max_num_instances: 1
-  cool_down_period_sec: 120 # default value
+runtime: java11
+env: standard
 resources:
   cpu: 1
   memory_gb: 2

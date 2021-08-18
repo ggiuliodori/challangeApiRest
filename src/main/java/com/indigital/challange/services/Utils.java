@@ -1,7 +1,6 @@
 package com.indigital.challange.services;
 
-import com.indigital.challange.repository.models.Cliente;
-import net.minidev.json.JSONObject;
+import com.indigital.challange.repository.models.Client;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.time.LocalDate;
@@ -48,7 +47,7 @@ public class Utils {
         return standardDeviation;
     }
 
-    public static List<Integer> getAges(Iterable<Cliente> clienteList) {
+    public static List<Integer> getAges(Iterable<Client> clienteList) {
         LocalDate currentDate = LocalDate.now();
         List<Integer> ages = new ArrayList<>();
         for(int i=0; i<IterableUtils.size(clienteList); i++) {

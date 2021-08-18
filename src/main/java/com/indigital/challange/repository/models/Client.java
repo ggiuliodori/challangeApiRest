@@ -7,9 +7,10 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class Cliente {
+public class Client {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -24,10 +25,10 @@ public class Cliente {
     @Column(nullable = false)
     private LocalDate dateBirth;
 
-    public Cliente() {
+    public Client() {
     }
 
-    public Cliente(Long id, @NonNull String name, @NonNull String lastName, @NonNull LocalDate dateBirth) {
+    public Client(Long id, @NonNull String name, @NonNull String lastName, @NonNull LocalDate dateBirth) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;

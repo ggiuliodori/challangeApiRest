@@ -1,7 +1,7 @@
 package com.indigital.challange.services;
 
 import com.indigital.challange.repository.ClienteRepository;
-import com.indigital.challange.repository.models.Cliente;
+import com.indigital.challange.repository.models.Client;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.apache.commons.collections4.IterableUtils;
@@ -21,7 +21,7 @@ public class ClienteServices {
     private ClienteRepository clienteRepository;
 
     @ExceptionHandler
-    public void addCliente(Cliente cliente) throws ErrorService {
+    public void addCliente(Client cliente) throws ErrorService {
         LocalDate currentDate = LocalDate.now();
         try {
             cliente.setAge(Utils.calculateAge(cliente.getDateBirth(), currentDate));
@@ -31,12 +31,12 @@ public class ClienteServices {
         }
     }
 
-    public Iterable<Cliente> getAllClients() {
+    public Iterable<Client> getAllClients() {
         log.info("Getting all clients");
         return clienteRepository.findAll();
     }
 
-    public static List<JSONObject> bundleResponse(Iterable<Cliente> clienteList) {
+    public static List<JSONObject> bundleResponse(Iterable<Client> clienteList) {
         List<JSONObject> response = new ArrayList<>();
         JSONObject bundle = new JSONObject();
         for (int i = 0; i< IterableUtils.size(clienteList); i++) {
