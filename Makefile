@@ -6,14 +6,16 @@ TOKEN=$(shell date +'%y-%m-%d_%H-%M-%S')
 
 build:
 	mvn clean install -DskipTests
+
 build-image:
+	mvn clean install -DskipTests
 	@docker build ${build_opts} --tag $(project)/$(app_name):$(app_version) --tag $(project)/$(app_name):latest .
 
 deploy:
 	gcloud app deploy
 
 run-local:
-	make build
+	make build-image
 	docker-compose -f docker-compose/docker-compose.yml up -d
 
 test-run:
