@@ -25,8 +25,7 @@ logs:
 	docker-compose -f docker-compose/docker-compose.yml logs -f service-challange
 
 restart:
-	docker-compose -f docker-compose/docker-compose.yml stop service-challange
-	docker-compose -f docker-compose/docker-compose.yml rm -f service-challange
+	docker-compose -f docker-compose/docker-compose.yml down
 	make run-local
 
 cloud-logs:
