@@ -3,8 +3,11 @@ version: '3.5'
 services:
   mysql:
     container_name: database
+    security_opt:
+      - seccomp:unconfined
     volumes:
-      - ./db_data/:/var/lib/mysql
+      - ./mysql/db_data/:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
     image: mysql:latest
     restart: always
     environment:
